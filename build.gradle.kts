@@ -69,7 +69,7 @@ tasks.processResources {
         from(rootProject.file("src/lang")).include("*.json").into("assets/tooltipthingy/lang")
     })
 
-    filesMatching("**.kts") {
+    filesMatching("**/*.kts") {
         exclude()
     }
 }
