@@ -7,6 +7,7 @@ import me.owdding.ktmodules.AutoCollect
 import me.owdding.ktmodules.Module
 import me.owdding.lib.utils.MeowddingLogger
 import me.owdding.iconographic.TooltipInformation.Companion.toInformation
+import me.owdding.iconographic.api.ImcHandler
 import me.owdding.iconographic.config.Config
 import me.owdding.iconographic.config.categories.misc.MiscConfig
 import me.owdding.iconographic.generated.BuildInfo
@@ -54,6 +55,8 @@ object Iconographic : ClientModInitializer, MeowddingLogger by MeowddingLogger.a
 
     override fun onInitializeClient() {
         info("Loaded Iconographic!")
+
+        ImcHandler.setup()
 
         IconographicModules.init { SkyBlockAPI.eventBus.register(it) }
 

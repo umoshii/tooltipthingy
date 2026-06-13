@@ -18,7 +18,7 @@ interface IconographicCompat {
 val IconographicCompat.isSkyblocker get() = this.`iconographic$isSkyblocker`()
 
 
-object ImcHandler : MeowddingLogger by Iconographic.featureLogger() {
+object ImcHandler : MeowddingLogger by Iconographic.featureLogger(){
 
     fun setup() {
         this.setup<Runnable>("item") { stack, runnable ->

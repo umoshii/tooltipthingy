@@ -79,6 +79,7 @@ dependencies {
 
     implementation(versionedCatalog["fabric.api"])
     implementation(libs.fabric.loader)
+    implementation(libs.fabric.language.kotlin)
 
     implementation(libs.meowdding.ktmodules)
     ksp(libs.meowdding.ktmodules)
