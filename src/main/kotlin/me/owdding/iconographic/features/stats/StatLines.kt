@@ -31,7 +31,7 @@ data object StatLines : TooltipFeature() {
     override val enabled: Boolean = true
     override val priority: Int = 25
 
-    val statRegex = Regex("^(?<name>[\\w ]+): (?<value>[+-]?[\\d,.]+%?)(?: (?<extra>.+))?$").toComponentRegex()
+    val statRegex = Regex("^(?<name>[\\w ]+): (?<value>[+-]?[\\d,.]+%?)(?<icon>[^\\d\\s]?)(?: (?<extra>.+))?$").toComponentRegex()
 
     override fun ItemStack.modifyEntries(list: MutableList<TooltipLine>, previousResult: Result?): Result = withComponentMerger(list) {
         var modified = false
@@ -40,8 +40,7 @@ data object StatLines : TooltipFeature() {
         while (canRead()) {
             val line = read()
 
-            val result = statRegex.match(line)
-            if (result == null) {
+            val result = statRegex.match(line) ?: run {
                 add(line)
                 continue
             }
