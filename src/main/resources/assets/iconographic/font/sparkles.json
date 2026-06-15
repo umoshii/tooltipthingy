@@ -1,0 +1,19 @@
+{
+  "providers": [
+    {
+      "type": "bitmap",
+      "chars": [
+        "><"
+      ],
+      "file": "iconographic:font/sparkles.png",
+      "height": 5,
+      "ascent": 5
+    },
+    {
+      "type": "space",
+      "advances": {
+        " ": 1
+      }
+    }
+  ]
+}

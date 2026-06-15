@@ -13,6 +13,7 @@ import tech.thatgravyboat.skyblockapi.utils.text.TextStyle.color
 object ChatUtils {
     val mc5 = id("mc5")
     val stats = id("stats")
+    val sparkles = id("sparkles")
 
     val prefix = Text.of {
         append("«")
