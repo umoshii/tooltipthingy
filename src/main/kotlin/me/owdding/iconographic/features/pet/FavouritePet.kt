@@ -4,6 +4,7 @@ import me.owdding.iconographic.config.categories.misc.MiscConfig
 import me.owdding.iconographic.system.RegisterFeature
 import me.owdding.iconographic.system.TooltipFeatureWithContext
 import me.owdding.iconographic.system.TooltipTag
+import me.owdding.iconographic.utils.Stars
 import net.minecraft.network.chat.Component
 import net.minecraft.world.item.ItemStack
 import tech.thatgravyboat.skyblockapi.api.datatype.DataTypes
@@ -31,7 +32,7 @@ data object FavouritePet : TooltipFeatureWithContext<AtomicBoolean>() {
             return emptyList()
         }
 
-        return listOf((TooltipTag.identifier(MiscConfig.starStyle.identifier, 11, 11, TextColor.YELLOW)))
+        return listOf((TooltipTag.identifier(Stars.POINTY.id, 11, 11, TextColor.YELLOW)))
     }
 
     context(context: AtomicBoolean)

@@ -1,10 +1,10 @@
 package me.owdding.iconographic.features.tags
 
-import me.owdding.iconographic.config.categories.misc.MiscConfig
 import me.owdding.iconographic.config.categories.tag.TagConfig
 import me.owdding.iconographic.system.RegisterFeature
 import me.owdding.iconographic.system.TooltipFeature
 import me.owdding.iconographic.system.TooltipTag
+import me.owdding.iconographic.utils.Stars
 import net.minecraft.network.chat.Component
 import net.minecraft.world.item.ItemStack
 import tech.thatgravyboat.skyblockapi.api.datatype.DataTypes
@@ -21,7 +21,15 @@ data object StarsFeature : TooltipFeature() {
     private val starIcons = setOf("✪", "➊", "➋", "➌", "➍", "➎")
     private val starIconRegex = Regex("\\s*(?:${starIcons.joinToString("|")})+")
 
-    private val colors = listOf(TextColor.GOLD, TextColor.RED, TextColor.PINK)
+    private val colors = listOf(TextColor.GOLD, TextColor.PINK, TextColor.AQUA)
+
+    private val masterStars = listOf(
+        Stars.MASTER_1,
+        Stars.MASTER_2,
+        Stars.MASTER_3,
+        Stars.MASTER_4,
+        Stars.MASTER_5
+    )
 
     override fun ItemStack.applies(): Boolean = DataTypes.STAR_COUNT() != null
 
@@ -31,11 +39,23 @@ data object StarsFeature : TooltipFeature() {
         val baseTier = max(0, stars - 5) / 5
         val moreTier = stars - 5 * (baseTier + 1)
 
+        val isDungeon = DataTypes.CATEGORY()?.isDungeon == true
+
         return buildList {
             val amount = min(5, stars)
-            repeat(amount) {
-                val color = if (it < moreTier) colors[(baseTier + 1).coerceAtMost(colors.lastIndex)] else colors[baseTier]
-                add(TooltipTag.identifier(MiscConfig.starStyle.identifier, 11, 11, color))
+            repeat(amount) { index ->
+                val isMasterStar = isDungeon && stars > 5 && index < (stars - 5)
+
+                val color = if (isMasterStar) TextColor.WHITE
+                else if (index < moreTier) colors[(baseTier + 1).coerceAtMost(colors.lastIndex)] else colors[baseTier]
+
+                val iconId = if (isMasterStar) {
+                    masterStars.getOrElse(index) { Stars.MASTER }.id
+                } else {
+                    Stars.BASE.id
+                }
+
+                add(TooltipTag.identifier(iconId, 11, 11, color))
             }
         }
     }

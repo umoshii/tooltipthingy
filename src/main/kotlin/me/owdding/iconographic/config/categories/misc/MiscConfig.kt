@@ -3,7 +3,6 @@ package me.owdding.iconographic.config.categories.misc
 import com.teamresourceful.resourcefulconfig.api.types.options.TranslatableValue
 import com.teamresourceful.resourcefulconfigkt.api.CategoryKt
 import me.owdding.iconographic.config.AutoTranslated
-import me.owdding.iconographic.utils.StarStyle
 
 object MiscConfig : CategoryKt("misc"), AutoTranslated {
     override val translationBase: String = "iconographic.config.misc"
@@ -15,6 +14,4 @@ object MiscConfig : CategoryKt("misc"), AutoTranslated {
 
     val drillFuel by autoBoolean(true)
     val drillComponents by autoBoolean(true)
-
-    val starStyle by autoEnum(StarStyle.FIVE_POINT)
 }

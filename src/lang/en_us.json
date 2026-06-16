@@ -63,10 +63,6 @@
         "petFavourite": {
           "@value": "Favourite Pet",
           "desc": "Changes favourite pet star into a rendered element."
-        },
-        "starStyle": {
-          "@value": "Star style",
-          "desc": "Select the style of the stars. Will apply to all stars rendered by the mod."
         }
       }
     }
