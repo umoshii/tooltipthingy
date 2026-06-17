@@ -12,6 +12,9 @@ import me.owdding.iconographic.generated.BuildInfo
 import me.owdding.iconographic.utils.debug.DebugBuilder
 import java.util.function.UnaryOperator
 
+enum class NonSkyBlockItemMode {
+    NORMAL, NO_ICON, NOTHING
+}
 
 object Config : ConfigKt("iconographic/config"), AutoTranslated {
 
@@ -30,6 +33,9 @@ object Config : ConfigKt("iconographic/config"), AutoTranslated {
 
     @JvmStatic @get:JvmName("skyblockOnly")
     val onlyInSkyblock by autoBoolean(true)
+
+    @JvmStatic @get:JvmName("nonSkyBlockItemMode")
+    val nonSkyBlockItemMode by autoEnum(NonSkyBlockItemMode.NO_ICON)
 
     val spinny by autoBoolean(false)
     val vanillaBackground by autoBoolean(false)

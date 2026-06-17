@@ -4,6 +4,7 @@ import me.owdding.iconographic.ExtractableTooltipLine
 import me.owdding.iconographic.Tooltip
 import me.owdding.iconographic.Iconographic.id
 import me.owdding.iconographic.config.Config
+import me.owdding.iconographic.config.NonSkyBlockItemMode
 import me.owdding.iconographic.font
 import me.owdding.iconographic.system.TooltipTag
 import net.minecraft.client.gui.Font
@@ -27,6 +28,7 @@ import tech.thatgravyboat.skyblockapi.api.data.SkyBlockRarity
 import tech.thatgravyboat.skyblockapi.helpers.McClient
 import tech.thatgravyboat.skyblockapi.helpers.McLevel
 import tech.thatgravyboat.skyblockapi.helpers.McPlayer
+import tech.thatgravyboat.skyblockapi.utils.extentions.getSkyBlockId
 import tech.thatgravyboat.skyblockapi.utils.extentions.scissor
 import tech.thatgravyboat.skyblockapi.utils.text.TextProperties.width
 import kotlin.math.max
@@ -42,6 +44,8 @@ data class TooltipHeader(
 
     constructor(tooltip: Tooltip) : this(tooltip.item, tooltip.name, tooltip.leftTags, tooltip.rightTags, tooltip.topRightIcon, tooltip.rarity)
 
+    private val showIcon = item.getSkyBlockId() != null || Config.nonSkyBlockItemMode != NonSkyBlockItemMode.NO_ICON
+
     val leftTagWidth = leftTags.sumOf { it.width }
     val rightTagWidth = rightTags.sumOf { it.width }
     val tagWidthTotal = when {
@@ -52,37 +56,48 @@ data class TooltipHeader(
     private val entity = ArmorStand(McClient.self.level!!, 0.0, 0.0, 0.0)
 
     override fun extract(graphics: GuiGraphicsExtractor, totalWidth: Int, x: Int, y: Int) {
-        graphics.blitSprite(
-            RenderPipelines.GUI_TEXTURED,
-            id("tag"),
-            x - 1,
-            y - 1,
-            24,
-            24,
-            ARGB.opaque(rarity.color)
-        )
-        graphics.extractItem(item, x + 3, y + 3)
-        graphics.text(font, name, x + 25, y, -1)
+        if (showIcon) {
+            graphics.blitSprite(
+                RenderPipelines.GUI_TEXTURED,
+                id("tag"),
+                x - 1,
+                y - 1,
+                24,
+                24,
+                ARGB.opaque(rarity.color)
+            )
+            graphics.extractItem(item, x + 3, y + 3)
+        }
 
-        var tags = 24
+        val xOffset = if (showIcon) 25 else 2
+        val yOffsetText = if (showIcon) 0 else 2
+
+        graphics.text(font, name, x + xOffset, y + yOffsetText, -1)
+
+        var tags = if (showIcon) 24 else 2
+        val yOffsetTags = if (showIcon) 10 else 14
+
         for (tag in leftTags) {
-            tag.extract(graphics, x + tags, y + 10)
+            tag.extract(graphics, x + tags, y + yOffsetTags)
             tags += tag.width
         }
 
         tags = totalWidth - rightTagWidth
         for (tag in rightTags) {
-            tag.extract(graphics, x + tags, y + 10)
+            tag.extract(graphics, x + tags, y + yOffsetTags)
             tags += tag.width
         }
     }
 
-    override fun getWidth(font: Font): Int = 25 + max(
-        tagWidthTotal - 2,
-        name.width + if (icon != null) 13 else 0
-    )
+    override fun getWidth(font: Font): Int {
+        val baseWidth = if (showIcon) 25 else 2
+        return baseWidth + max(
+            tagWidthTotal - 2,
+            name.width + if (icon != null) 13 else 0
+        )
+    }
 
-    override fun getHeight(font: Font): Int = 26
+    override fun getHeight(font: Font): Int = if (showIcon) 26 else 24
 
     // Taken from SkyOcean
     private fun GuiGraphicsExtractor.extractItem(item: ItemStack, x: Int, y: Int) {

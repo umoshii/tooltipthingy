@@ -15,6 +15,10 @@
         "@value": "Only in Skyblock",
         "desc": "Only activate Iconographic while in Skyblock."
       },
+      "nonSkyBlockItemMode": {
+        "@value": "Non SkyBlock Item Mode",
+        "desc": "Customize the appearance of items that don't have a SkyBlockId (like Gui Items)."
+      },
       "spinny": {
         "@value": "Spinning Item",
         "desc": "Whether the item in the top left corner should spin."
@@ -63,6 +67,14 @@
         "petFavourite": {
           "@value": "Favourite Pet",
           "desc": "Changes favourite pet star into a rendered element."
+        },
+        "drillFuel": {
+          "@value": "Drill Fuel",
+          "desc": "Turns the drill fuel into a bar."
+        },
+        "drillComponents": {
+          "@value": "Drill Components",
+          "desc": "Adds an icon to drill components and changes the style a bit."
         }
       }
     }

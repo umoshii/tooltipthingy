@@ -5,6 +5,7 @@ import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.llamalad7.mixinextras.sugar.Local;
 import me.owdding.iconographic.Iconographic;
 import me.owdding.iconographic.config.Config;
+import me.owdding.iconographic.config.NonSkyBlockItemMode;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.screens.inventory.tooltip.ClientTooltipComponent;
@@ -17,6 +18,8 @@ import org.spongepowered.asm.mixin.injection.At;
 import tech.thatgravyboat.skyblockapi.api.location.LocationAPI;
 
 import java.util.List;
+
+import static tech.thatgravyboat.skyblockapi.utils.extentions.ItemStackExtensionsKt.getSkyBlockId;
 
 @Mixin(GuiGraphicsExtractor.class)
 public class GuiGraphicsMixin {
@@ -44,7 +47,10 @@ public class GuiGraphicsMixin {
         try {
             var item = Iconographic.extractingItemTooltip;
             if (Config.isEnabled() && item != null && (!Config.skyblockOnly() || LocationAPI.INSTANCE.isOnSkyBlock())) {
-                runnable = Iconographic.createTooltip(instance, item, font, lines, xo, yo, positioner, style);
+                boolean hasSkyBlockId = getSkyBlockId(item) != null;
+                if (hasSkyBlockId || Config.nonSkyBlockItemMode() != NonSkyBlockItemMode.NOTHING) {
+                    runnable = Iconographic.createTooltip(instance, item, font, lines, xo, yo, positioner, style);
+                }
             }
         } catch (RuntimeException e) {
             Iconographic.INSTANCE.error("Failed to build tooltip!", e);
