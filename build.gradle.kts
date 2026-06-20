@@ -79,8 +79,8 @@ val commitHash = tasks.register("commitHash") {
 }
 
 tasks.processResources {
-    dependsOn(lastVersionBump, gitRef)
-    mustRunAfter(lastVersionBump, gitRef)
+    dependsOn(commitHash)
+    mustRunAfter(commitHash)
     val range = if ("minecraft.range" in versionedCatalog.versions) {
         versionedCatalog.versions["minecraft.range"].toString()
     } else {
