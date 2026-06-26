@@ -22,7 +22,7 @@ fun <T> CategoryBuilder.observable(entry: ConfigDelegateProvider<RConfigKtEntry<
 
 fun CategoryBuilder.requiresChunkRebuild(entry: ConfigDelegateProvider<RConfigKtEntry<Boolean>>) = observable(entry) {
     //~ if >= 26.2 'levelRenderer' -> 'levelExtractor'
-    runCatching { McClient.self.levelRenderer.allChanged() }
+    runCatching { McClient.self.levelExtractor.allChanged() }
 }
 
 var SeparatorBuilder.translation: String
