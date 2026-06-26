@@ -9,11 +9,11 @@ pluginManagement {
 
 plugins {
     id("org.gradle.toolchains.foojay-resolver-convention") version "0.8.0"
-    id("dev.kikugie.stonecutter") version "0.7.10"
+    id("dev.kikugie.stonecutter") version "0.10-alpha.2"
 }
 rootProject.name = "tooltip-thingy"
 
-val versions = listOf("26.1")
+val versions = listOf("26.2", "26.1")
 
 stonecutter {
     create(rootProject) {

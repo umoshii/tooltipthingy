@@ -96,7 +96,7 @@ tasks.processResources {
         "minecraft_range" to range,
         "fabric_lang_kotlin" to versionedCatalog.versions["fabric.language.kotlin"],
         "sbapi" to versionedCatalog.versions["skyblockapi"],
-        "rconfigkt" to versionedCatalog.versions["resourceful.configkt"],
+        "rconfigkt" to versionedCatalog.versions["resourceful.config.kotlin"],
         "rconfig" to versionedCatalog.versions["resourceful.config"],
     )
     outputs.upToDateWhen { false }
@@ -143,8 +143,8 @@ dependencies {
 
     implementation(versionedCatalog["resourceful.config"])
     include(versionedCatalog["resourceful.config"])
-    implementation(versionedCatalog["resourceful.configkt"])
-    include(versionedCatalog["resourceful.configkt"])
+    implementation(versionedCatalog["resourceful.config.kotlin"])
+    include(versionedCatalog["resourceful.config.kotlin"])
     implementation(versionedCatalog["placeholders"])
 
     implementation(versionedCatalog["olympus"])

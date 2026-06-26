@@ -21,6 +21,7 @@ import kotlin.time.toTimeUnit
 fun <T> CategoryBuilder.observable(entry: ConfigDelegateProvider<RConfigKtEntry<T>>, onChange: () -> Unit) = this.observable(entry) { _, _ -> onChange() }
 
 fun CategoryBuilder.requiresChunkRebuild(entry: ConfigDelegateProvider<RConfigKtEntry<Boolean>>) = observable(entry) {
+    //~ if >= 26.2 'levelRenderer' -> 'levelExtractor'
     runCatching { McClient.self.levelRenderer.allChanged() }
 }
 

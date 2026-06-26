@@ -74,12 +74,6 @@ object Iconographic : ClientModInitializer, MeowddingLogger by MeowddingLogger.a
         event.registerBaseCallback {
             McClient.setScreenAsync { ResourcefulConfigScreen.getFactory("iconographic").apply(null) }
         }
-
-        event.registerDevWithCallback("give") {
-            if (McPlayer.self?.gameMode()?.isCreative != true && McClient.self.isSingleplayer) return@registerDevWithCallback
-            val item = JsonParser.parseString(McClient.clipboard).toDataOrThrow(ItemStack.CODEC)
-            McClient.self.player?.inventory?.add(item)
-        }
     }
 
     val configurator = Configurator("iconographic")
