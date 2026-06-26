@@ -59,11 +59,11 @@ data object PetLevel : TooltipFeature() {
 
         skipSpace()
 
-        originalMerger.destination.add(SpacerLine(height = 3))
-        originalMerger.destination.add(SeparatorRenderer)
-        originalMerger.destination.add(petLevelLine)
-        originalMerger.destination.add(SeparatorRenderer)
-        originalMerger.destination.add(SpacerLine(height = 3))
+        originalMerger.destination.add(1, SpacerLine(height = 3))
+        originalMerger.destination.add(1, SeparatorRenderer)
+        originalMerger.destination.add(1, petLevelLine)
+        originalMerger.destination.add(1, SeparatorRenderer)
+        originalMerger.destination.add(1, SpacerLine(height = 3))
 
         return@withComponentMerger Result.unmodified
     }
