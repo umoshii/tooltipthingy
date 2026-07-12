@@ -25,7 +25,9 @@ import net.minecraft.client.gui.Font
 import net.minecraft.client.gui.GuiGraphicsExtractor
 import net.minecraft.client.gui.screens.inventory.tooltip.ClientTooltipComponent
 import net.minecraft.client.gui.screens.inventory.tooltip.ClientTooltipPositioner
+import net.minecraft.client.gui.screens.inventory.tooltip.TooltipRenderUtil
 import net.minecraft.client.renderer.RenderPipelines
+import net.minecraft.core.component.DataComponents
 import net.minecraft.resources.Identifier
 import net.minecraft.util.ARGB
 import net.minecraft.world.item.ItemStack
@@ -117,9 +119,10 @@ object Iconographic : ClientModInitializer, MeowddingLogger by MeowddingLogger.a
         )
 
         if (Config.vanillaBackground) {
+            val style = item.get(DataComponents.TOOLTIP_STYLE)
             blitSprite(
                 RenderPipelines.GUI_TEXTURED,
-                Identifier.withDefaultNamespace("tooltip/background"),
+                TooltipRenderUtil.getBackgroundSprite(style),
                 x - 8,
                 y - 8,
                 totalWidth + 24,
@@ -128,7 +131,7 @@ object Iconographic : ClientModInitializer, MeowddingLogger by MeowddingLogger.a
             )
             blitSprite(
                 RenderPipelines.GUI_TEXTURED,
-                Identifier.withDefaultNamespace("tooltip/frame"),
+                TooltipRenderUtil.getFrameSprite(style),
                 x - 8,
                 y - 8,
                 totalWidth + 24,

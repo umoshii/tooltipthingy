@@ -6,3 +6,6 @@ accessible field net/minecraft/client/gui/screens/inventory/tooltip/ClientBundle
 accessible method net/minecraft/client/gui/screens/inventory/InventoryScreen extractRenderState (Lnet/minecraft/world/entity/LivingEntity;)Lnet/minecraft/client/renderer/entity/state/EntityRenderState;
 
 inject-interface net/minecraft/client/gui/screens/inventory/tooltip/ClientTooltipComponent me/owdding/iconographic/TooltipLine
+
+accessible method net/minecraft/client/gui/screens/inventory/tooltip/TooltipRenderUtil getBackgroundSprite (Lnet/minecraft/resources/Identifier;)Lnet/minecraft/resources/Identifier;
+accessible method net/minecraft/client/gui/screens/inventory/tooltip/TooltipRenderUtil getFrameSprite (Lnet/minecraft/resources/Identifier;)Lnet/minecraft/resources/Identifier;
