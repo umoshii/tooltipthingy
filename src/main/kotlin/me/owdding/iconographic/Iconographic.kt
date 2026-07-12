@@ -1,52 +1,43 @@
 package me.owdding.iconographic
 
-import com.google.gson.JsonParser
 import com.teamresourceful.resourcefulconfig.api.client.ResourcefulConfigScreen
 import com.teamresourceful.resourcefulconfig.api.loader.Configurator
-import me.owdding.ktmodules.AutoCollect
-import me.owdding.ktmodules.Module
-import me.owdding.lib.utils.MeowddingLogger
 import me.owdding.iconographic.TooltipInformation.Companion.toInformation
 import me.owdding.iconographic.api.ImcHandler
 import me.owdding.iconographic.config.Config
-import me.owdding.iconographic.config.categories.misc.MiscConfig
 import me.owdding.iconographic.generated.BuildInfo
 import me.owdding.iconographic.generated.IconographicApiDebug
 import me.owdding.iconographic.generated.IconographicModules
 import me.owdding.iconographic.generated.IconographicTooltipFeatures
 import me.owdding.iconographic.render.TooltipHeader
 import me.owdding.iconographic.system.CustomTooltip
+import me.owdding.iconographic.system.IconographicTooltipComponent
 import me.owdding.iconographic.utils.debug.DebugBuilder
 import me.owdding.iconographic.utils.debug.RegisterIconCommandEvent
 import me.owdding.iconographic.utils.debug.RegisterTttDebugEvent
+import me.owdding.ktmodules.AutoCollect
+import me.owdding.ktmodules.Module
+import me.owdding.lib.utils.MeowddingLogger
 import net.fabricmc.api.ClientModInitializer
 import net.fabricmc.fabric.api.client.command.v2.ClientCommandRegistrationCallback
 import net.minecraft.client.gui.Font
-import net.minecraft.client.gui.GuiGraphicsExtractor
 import net.minecraft.client.gui.screens.inventory.tooltip.ClientTooltipComponent
-import net.minecraft.client.gui.screens.inventory.tooltip.ClientTooltipPositioner
-import net.minecraft.client.gui.screens.inventory.tooltip.TooltipRenderUtil
-import net.minecraft.client.renderer.RenderPipelines
-import net.minecraft.core.component.DataComponents
-import net.minecraft.resources.Identifier
-import net.minecraft.util.ARGB
 import net.minecraft.world.item.ItemStack
-import org.joml.component1
-import org.joml.component2
 import tech.thatgravyboat.skyblockapi.api.SkyBlockAPI
 import tech.thatgravyboat.skyblockapi.api.events.base.Subscription
 import tech.thatgravyboat.skyblockapi.helpers.McClient
-import tech.thatgravyboat.skyblockapi.helpers.McPlayer
 import tech.thatgravyboat.skyblockapi.platform.Identifiers
-import tech.thatgravyboat.skyblockapi.utils.json.Json.toDataOrThrow
 import kotlin.math.max
-import kotlin.text.isEmpty
 
 @Module
 object Iconographic : ClientModInitializer, MeowddingLogger by MeowddingLogger.autoResolve() {
     @Volatile
     @JvmField
     var extractingItemTooltip: ItemStack? = null
+
+    @Volatile
+    @JvmField
+    var currentTooltipRarityColor: Int? = null
 
     fun pushPop(item: ItemStack, runnable: () -> Unit) {
         val current = this.extractingItemTooltip
@@ -82,87 +73,38 @@ object Iconographic : ClientModInitializer, MeowddingLogger by MeowddingLogger.a
     val config = Config.register(configurator)
 
     @JvmStatic
-    fun GuiGraphicsExtractor.createTooltip(
+    fun processTooltipComponents(
         item: ItemStack,
         font: Font,
-        lines: List<ClientTooltipComponent>,
-        xo: Int,
-        yo: Int,
-        positioner: ClientTooltipPositioner,
-        style: Identifier?,
-    ): Runnable = {
+        lines: MutableList<ClientTooltipComponent>
+    ) {
         val tooltipInfo = lines.toInformation()
-
         val tooltip = CustomTooltip.update(item, tooltipInfo)
-        val (
-            rarity,
-            isRarityUpgraded,
-        ) = tooltip
+
+        currentTooltipRarityColor = tooltip.rarity.color
 
         val entries = tooltip.entries.toMutableList()
         entries.addFirst(TooltipHeader(tooltip))
+
         var totalWidth = 0
-        var totalHeight = 0
 
         for (line in entries) {
             totalWidth = max(line.getWidth(font), totalWidth)
-            totalHeight += line.getHeight(font)
         }
 
-        val [x, y] = positioner.positionTooltip(
-            this.guiWidth(),
-            this.guiHeight(),
-            xo,
-            yo,
-            totalWidth + 10,
-            totalHeight + 10
-        )
-
-        if (Config.vanillaBackground) {
-            val style = item.get(DataComponents.TOOLTIP_STYLE)
-            blitSprite(
-                RenderPipelines.GUI_TEXTURED,
-                TooltipRenderUtil.getBackgroundSprite(style),
-                x - 8,
-                y - 8,
-                totalWidth + 24,
-                totalHeight + 24,
-                -1
-            )
-            blitSprite(
-                RenderPipelines.GUI_TEXTURED,
-                TooltipRenderUtil.getFrameSprite(style),
-                x - 8,
-                y - 8,
-                totalWidth + 24,
-                totalHeight + 24,
-                -1
-            )
-        } else {
-            blitSprite(
-                RenderPipelines.GUI_TEXTURED,
-                id("background"),
-                x,
-                y,
-                totalWidth + 10,
-                totalHeight + 10,
-                ARGB.opaque(rarity.color)
-            )
-        }
-
-        var yOffset = 0
+        lines.clear()
         for (line in entries) {
             when (line) {
                 is ExtractableTooltipLine -> {
-                    line.extract(this, totalWidth, x + 5, y + 5 + yOffset)
+                    val component = IconographicTooltipComponent(line)
+                    component.totalWidth = totalWidth
+                    lines.add(component)
                 }
 
                 is ClientTooltipComponent -> {
-                    line.extractText(this, font, x + 5, y + 5 + yOffset)
-                    line.extractImage(font, x + 5, y + 5 + yOffset, totalWidth, line.getHeight(font), this)
+                    lines.add(line)
                 }
             }
-            yOffset += line.getHeight(font)
         }
     }
 
