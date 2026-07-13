@@ -34,6 +34,10 @@ public class GuiGraphicsMixin {
             Iconographic.currentTooltipRarityColor = null;
 
             if (Config.isEnabled() && item != null && (!Config.skyblockOnly() || LocationAPI.INSTANCE.isOnSkyBlock())) {
+                if (lines.isEmpty()) {
+                    return lines;
+                }
+
                 boolean hasSkyBlockId = getSkyBlockId(item) != null;
                 if (hasSkyBlockId || Config.nonSkyBlockItemMode() != NonSkyBlockItemMode.NOTHING) {
                     List<ClientTooltipComponent> mutableLines = new ArrayList<>(lines);
