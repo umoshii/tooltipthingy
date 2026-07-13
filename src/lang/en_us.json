@@ -12,8 +12,12 @@
         "desc": "Toggles all the custom tooltip renderer."
       },
       "onlyInSkyblock": {
-        "@value": "Only in Skyblock",
-        "desc": "Only activate Iconographic while in Skyblock."
+        "@value": "Only in SkyBlock",
+        "desc": "Only activate Iconographic while in SkyBlock."
+      },
+      "hideVanillaTooltipData": {
+        "@value": "Hide Vanilla Tooltip Information",
+        "desc": "Hides Additional Tooltip Information Vanilla adds by default (like vanilla Enchantments) that aren't hidden by Hypixel while they should."
       },
       "nonSkyBlockItemMode": {
         "@value": "Non SkyBlock Item Mode",

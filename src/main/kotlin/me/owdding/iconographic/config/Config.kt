@@ -34,6 +34,9 @@ object Config : ConfigKt("iconographic/config"), AutoTranslated {
     @JvmStatic @get:JvmName("skyblockOnly")
     val onlyInSkyblock by autoBoolean(true)
 
+    @JvmStatic @get:JvmName("hideVanillaTooltipData")
+    val hideVanillaTooltipData by autoBoolean(true)
+
     @JvmStatic @get:JvmName("nonSkyBlockItemMode")
     val nonSkyBlockItemMode by autoEnum(NonSkyBlockItemMode.NO_ICON)
 
