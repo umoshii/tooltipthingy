@@ -13,7 +13,6 @@ plugins {
 val archiveName = "iconographic"
 
 group = "me.owdding"
-version = "1.0.0"
 
 repositories {
     fun scopedMaven(url: String, vararg paths: String) = maven(url) { content { paths.forEach(::includeGroupAndSubgroups) } }
