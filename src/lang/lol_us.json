@@ -53,6 +53,10 @@
           "@value": "rarities... woaw",
           "desc": "Addz teh itemz rareness az tag"
         },
+        "shardId": {
+          "@value": "Schard ID",
+          "desc": "Addz teh schardz ID az tag"
+        },
         "stars": {
           "@value": "Starz",
           "desc": "Add da itemz stars az tagz"

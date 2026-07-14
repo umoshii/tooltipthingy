@@ -53,6 +53,10 @@
           "@value": "Rarity",
           "desc": "Adds the item's rarity as tag."
         },
+        "shardId": {
+          "@value": "Shard ID",
+          "desc": "Adds a separate tag for a Shard's ID."
+        },
         "stars": {
           "@value": "Stars",
           "desc": "Adds the item's stars to the tags."
