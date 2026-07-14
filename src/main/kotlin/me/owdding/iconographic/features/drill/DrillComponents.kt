@@ -10,6 +10,7 @@ import me.owdding.iconographic.lines.SpacerLine
 import me.owdding.iconographic.system.RegisterFeature
 import me.owdding.iconographic.system.Result
 import me.owdding.iconographic.system.TooltipFeature
+import me.owdding.iconographic.utils.chat.DisplayColor
 import net.minecraft.client.gui.Font
 import net.minecraft.client.gui.GuiGraphicsExtractor
 import net.minecraft.client.renderer.RenderPipelines
@@ -18,7 +19,6 @@ import net.minecraft.world.item.ItemStack
 import tech.thatgravyboat.skyblockapi.api.data.SkyBlockCategory
 import tech.thatgravyboat.skyblockapi.api.datatype.DataTypes
 import tech.thatgravyboat.skyblockapi.api.datatype.getData
-import tech.thatgravyboat.skyblockapi.utils.text.TextColor
 import kotlin.math.max
 
 @RegisterFeature
@@ -115,9 +115,9 @@ data object DrillComponents : TooltipFeature() {
     ) : ExtractableTooltipLine {
 
         override fun extract(graphics: GuiGraphicsExtractor, totalWidth: Int, x: Int, y: Int) {
-            graphics.blitSprite(RenderPipelines.GUI_TEXTURED, id("drill/slot"), x, y, 16, 16, ARGB.opaque(TextColor.DARK_GRAY))
+            graphics.blitSprite(RenderPipelines.GUI_TEXTURED, id("drill/slot"), x, y, 16, 16, ARGB.opaque(DisplayColor.DARK_GRAY))
 
-            val drawColor = if (isInstalled) type.color else ARGB.opaque(TextColor.GRAY)
+            val drawColor = if (isInstalled) type.color else ARGB.opaque(DisplayColor.GRAY)
             graphics.blitSprite(RenderPipelines.GUI_TEXTURED, type.id, x, y, 16, 16, drawColor)
 
             graphics.text(font, nameLine.charSequence, x + 22, y + 4, -1)
@@ -139,9 +139,9 @@ data object DrillComponents : TooltipFeature() {
     }
 
     enum class ComponentType(location: String, val color: Int) {
-        TANK("tank", ARGB.opaque(TextColor.RED)),
-        ENGINE("engine", ARGB.opaque(TextColor.GOLD)),
-        UPGRADE("upgrade", ARGB.opaque(TextColor.LIGHT_PURPLE));
+        TANK("tank", ARGB.opaque(DisplayColor.RED)),
+        ENGINE("engine", ARGB.opaque(DisplayColor.GOLD)),
+        UPGRADE("upgrade", ARGB.opaque(DisplayColor.LIGHT_PURPLE));
 
         val id = id("drill/$location")
     }

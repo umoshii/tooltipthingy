@@ -6,6 +6,7 @@ import me.owdding.iconographic.system.RegisterFeature
 import me.owdding.iconographic.system.TooltipFeature
 import me.owdding.iconographic.system.TooltipTag
 import me.owdding.iconographic.utils.chat.ChatUtils
+import me.owdding.iconographic.utils.chat.DisplayColor.displayColor
 import me.owdding.iconographic.utils.chat.sendWithPrefix
 import me.owdding.iconographic.utils.debug.RegisterIconCommandEvent
 import me.owdding.ktmodules.Module
@@ -42,10 +43,10 @@ data object RarityTag : TooltipFeature() {
             }
             Text.join(left, rarityText, right)
         } else {
-            Text.of(rarity.displayName, rarity.color)
+            Text.of(rarity.displayName, rarity.displayColor)
         }
 
-        return listOf(TooltipTag.literal(comp, rarity.color))
+        return listOf(TooltipTag.literal(comp, rarity.displayColor))
     }
 }
 
@@ -67,8 +68,8 @@ object ShaderCache {
     fun getOrRegisterUpgradeShader(rarity: SkyBlockRarity): GradientTextShader {
         return cache.getOrPut(rarity) {
             val previous = rarity.getPreviousRarity()
-            val startColor = previous.color
-            val endColor = rarity.color
+            val startColor = previous.displayColor
+            val endColor = rarity.displayColor
             GradientTextShader(
                 colors = listOf(
                     endColor,

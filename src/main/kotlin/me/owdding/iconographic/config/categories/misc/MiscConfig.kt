@@ -8,6 +8,8 @@ object MiscConfig : CategoryKt("misc"), AutoTranslated {
     override val translationBase: String = "iconographic.config.misc"
     override val name: TranslatableValue = Translated(translationBase)
 
+    val skyBlockColor by autoBoolean(true)
+
     val petAbilities by autoBoolean(true)
     val petLevel by autoBoolean(true)
     val petFavourite by autoBoolean(true)

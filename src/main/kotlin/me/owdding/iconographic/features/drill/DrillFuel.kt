@@ -12,6 +12,7 @@ import me.owdding.iconographic.system.RegisterFeature
 import me.owdding.iconographic.system.Result
 import me.owdding.iconographic.system.TooltipFeature
 import me.owdding.iconographic.utils.chat.ChatUtils
+import me.owdding.iconographic.utils.chat.DisplayColor
 import net.minecraft.client.gui.Font
 import net.minecraft.client.gui.GuiGraphicsExtractor
 import net.minecraft.client.renderer.RenderPipelines
@@ -22,7 +23,6 @@ import tech.thatgravyboat.skyblockapi.utils.extentions.scissor
 import tech.thatgravyboat.skyblockapi.utils.extentions.toFormattedString
 import tech.thatgravyboat.skyblockapi.utils.regex.RegexUtils.match
 import tech.thatgravyboat.skyblockapi.utils.text.Text
-import tech.thatgravyboat.skyblockapi.utils.text.TextColor
 import tech.thatgravyboat.skyblockapi.utils.text.TextProperties.stripped
 import tech.thatgravyboat.skyblockapi.utils.text.TextProperties.width
 import tech.thatgravyboat.skyblockapi.utils.text.TextStyle.color
@@ -36,7 +36,7 @@ data object DrillFuel : TooltipFeature() {
     override val enabled: Boolean get() = MiscConfig.drillFuel
     override val priority: Int = 10
 
-    val DARK_GREEN = ARGB.opaque(TextColor.DARK_GREEN)
+    val DARK_GREEN get() = ARGB.opaque(DisplayColor.DARK_GREEN)
     val regex = Regex("^Fuel: (?<current>[\\d,.]+[kKmMbB]?)/(?<max>[\\d,.]+[kKmMbB]?)$")
 
     override fun ItemStack.modifyEntries(list: MutableList<TooltipLine>, previousResult: Result?): Result = withComponentMerger(list) {

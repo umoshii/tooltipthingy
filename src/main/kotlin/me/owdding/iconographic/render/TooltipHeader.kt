@@ -7,6 +7,7 @@ import me.owdding.iconographic.config.Config
 import me.owdding.iconographic.config.NonSkyBlockItemMode
 import me.owdding.iconographic.font
 import me.owdding.iconographic.system.TooltipTag
+import me.owdding.iconographic.utils.chat.DisplayColor.displayColor
 import net.minecraft.client.gui.Font
 import net.minecraft.client.gui.GuiGraphicsExtractor
 import net.minecraft.client.renderer.RenderPipelines
@@ -55,7 +56,7 @@ data class TooltipHeader(
                 y - 1,
                 24,
                 24,
-                ARGB.opaque(rarity.color)
+                ARGB.opaque(rarity.displayColor)
             )
             graphics.extractItem(item, x + 3, y + 3)
         }

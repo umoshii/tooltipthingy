@@ -64,6 +64,10 @@
       },
       "misc": {
         "@value": "More Opsuns??",
+        "skyBlockColor": {
+          "@value": "Ues Skyblock's Colorz",
+          "desc": "Use Skyblock's own colurz fer Tooltip Backround, Tags an' stuffz"
+        },
         "petAbilities": {
           "@value": "Pet thingies",
           "desc": "Centerin pet skillz n puttin separators in!!"

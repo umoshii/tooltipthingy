@@ -5,10 +5,10 @@ import me.owdding.iconographic.system.RegisterFeature
 import me.owdding.iconographic.system.TooltipFeature
 import me.owdding.iconographic.system.TooltipTag
 import me.owdding.iconographic.utils.Stars
+import me.owdding.iconographic.utils.chat.DisplayColor
 import net.minecraft.network.chat.Component
 import net.minecraft.world.item.ItemStack
 import tech.thatgravyboat.skyblockapi.api.datatype.DataTypes
-import tech.thatgravyboat.skyblockapi.utils.text.TextColor
 import tech.thatgravyboat.skyblockapi.utils.text.TextProperties.stripped
 import kotlin.math.max
 import kotlin.math.min
@@ -21,7 +21,7 @@ data object StarsFeature : TooltipFeature() {
     private val starIcons = setOf("✪", "➊", "➋", "➌", "➍", "➎")
     private val starIconRegex = Regex("\\s*(?:${starIcons.joinToString("|")})+")
 
-    private val colors = listOf(TextColor.GOLD, TextColor.PINK, TextColor.AQUA)
+    private val colors = listOf(DisplayColor.GOLD, DisplayColor.LIGHT_PURPLE, DisplayColor.AQUA)
 
     private val masterStars = listOf(
         Stars.MASTER_1,
@@ -46,7 +46,7 @@ data object StarsFeature : TooltipFeature() {
             repeat(amount) { index ->
                 val isMasterStar = isDungeon && stars > 5 && index < (stars - 5)
 
-                val color = if (isMasterStar) TextColor.WHITE
+                val color = if (isMasterStar) DisplayColor.WHITE
                 else if (index < moreTier) colors[(baseTier + 1).coerceAtMost(colors.lastIndex)] else colors[baseTier]
 
                 val iconId = if (isMasterStar) {

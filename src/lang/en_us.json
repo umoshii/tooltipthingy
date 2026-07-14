@@ -64,6 +64,10 @@
       },
       "misc": {
         "@value": "Misc Config",
+        "skyBlockColor": {
+          "@value": "Use SkyBlock's Color",
+          "desc": "Use SkyBlock's custom colors for Tooltip Background, Tags, etc."
+        },
         "petAbilities": {
           "@value": "Pet abilities",
           "desc": "Centers pet's abilities and adds separators."

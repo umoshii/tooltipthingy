@@ -6,8 +6,8 @@ import me.owdding.iconographic.system.RegisterFeature
 import me.owdding.iconographic.system.Result
 import me.owdding.iconographic.system.TooltipFeatureWithContext
 import me.owdding.iconographic.system.TooltipTag
+import me.owdding.iconographic.utils.chat.DisplayColor
 import net.minecraft.world.item.ItemStack
-import tech.thatgravyboat.skyblockapi.utils.text.TextColor
 import tech.thatgravyboat.skyblockapi.utils.text.TextProperties.stripped
 import java.util.concurrent.atomic.AtomicInteger
 import kotlin.collections.MutableList
@@ -27,7 +27,7 @@ data object BreakingPowerTag : TooltipFeatureWithContext<AtomicInteger>() {
             return emptyList()
         }
 
-        return listOf(TooltipTag.literal("bp $breakingPower", TextColor.DARK_GREEN))
+        return listOf(TooltipTag.literal("bp $breakingPower", DisplayColor.DARK_GREEN))
     }
 
 

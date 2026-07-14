@@ -5,11 +5,11 @@ import me.owdding.iconographic.system.RegisterFeature
 import me.owdding.iconographic.system.TooltipFeatureWithContext
 import me.owdding.iconographic.system.TooltipTag
 import me.owdding.iconographic.utils.Stars
+import me.owdding.iconographic.utils.chat.DisplayColor
 import net.minecraft.network.chat.Component
 import net.minecraft.world.item.ItemStack
 import tech.thatgravyboat.skyblockapi.api.datatype.DataTypes
 import tech.thatgravyboat.skyblockapi.api.datatype.getData
-import tech.thatgravyboat.skyblockapi.utils.text.TextColor
 import tech.thatgravyboat.skyblockapi.utils.text.TextProperties.stripped
 import tech.thatgravyboat.skyblockapi.utils.text.TextUtils.substring
 import java.util.concurrent.atomic.AtomicBoolean
@@ -32,7 +32,7 @@ data object FavouritePet : TooltipFeatureWithContext<AtomicBoolean>() {
             return emptyList()
         }
 
-        return listOf((TooltipTag.identifier(Stars.POINTY.id, 11, 11, TextColor.YELLOW)))
+        return listOf((TooltipTag.identifier(Stars.POINTY.id, 11, 11, DisplayColor.YELLOW)))
     }
 
     context(context: AtomicBoolean)

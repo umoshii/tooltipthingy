@@ -12,6 +12,7 @@ import me.owdding.iconographic.generated.IconographicTooltipFeatures
 import me.owdding.iconographic.render.TooltipHeader
 import me.owdding.iconographic.system.CustomTooltip
 import me.owdding.iconographic.system.IconographicTooltipComponent
+import me.owdding.iconographic.utils.chat.DisplayColor.displayColor
 import me.owdding.iconographic.utils.debug.DebugBuilder
 import me.owdding.iconographic.utils.debug.RegisterIconCommandEvent
 import me.owdding.iconographic.utils.debug.RegisterTttDebugEvent
@@ -81,7 +82,7 @@ object Iconographic : ClientModInitializer, MeowddingLogger by MeowddingLogger.a
         val tooltipInfo = lines.toInformation()
         val tooltip = CustomTooltip.update(item, tooltipInfo)
 
-        currentTooltipRarityColor = tooltip.rarity.color
+        currentTooltipRarityColor = tooltip.rarity.displayColor
 
         val entries = tooltip.entries.toMutableList()
         entries.addFirst(TooltipHeader(tooltip))

@@ -7,6 +7,7 @@ import me.owdding.iconographic.system.RegisterFeature
 import me.owdding.iconographic.system.Result
 import me.owdding.iconographic.system.TooltipFeature
 import me.owdding.iconographic.utils.chat.ChatUtils.mc5
+import me.owdding.iconographic.utils.chat.DisplayColor
 import me.owdding.iconographic.utils.debug.debugToggle
 import net.minecraft.client.gui.Font
 import net.minecraft.client.gui.GuiGraphicsExtractor
@@ -15,7 +16,6 @@ import net.minecraft.network.chat.MutableComponent
 import net.minecraft.world.item.ItemStack
 import tech.thatgravyboat.skyblockapi.utils.regex.component.toComponentRegex
 import tech.thatgravyboat.skyblockapi.utils.text.Text
-import tech.thatgravyboat.skyblockapi.utils.text.TextColor
 import tech.thatgravyboat.skyblockapi.utils.text.TextProperties.stripped
 import tech.thatgravyboat.skyblockapi.utils.text.TextProperties.width
 import tech.thatgravyboat.skyblockapi.utils.text.TextStyle.color
@@ -82,7 +82,7 @@ data object StatLines : TooltipFeature() {
 val showStatIds by debugToggle("stat_ids", "Render stat ids next to the line")
 
 val dot = Text.of("·") {
-    this.color = TextColor.GRAY
+    this.color = DisplayColor.GRAY
     this.font = mc5
     shadowColor = null
 }
